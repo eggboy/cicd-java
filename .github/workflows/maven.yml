@@ -116,7 +116,7 @@ jobs:
           tenant-id: ${{ secrets.TENANT_ID }}
           subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
 
-      - uses: azure/setup-kubectl@v3
+      - uses: azure/setup-kubectl@v4
         name: Setup kubectl
 
       - name: Setup kubelogin
