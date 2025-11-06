@@ -17,9 +17,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'microsoft'
@@ -28,12 +28,12 @@ jobs:
       - name: Build with Maven
         run: mvn -B clean package site
       - name: Upload SBOM(Cyclonedx)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: bom.json
           path: './target/bom.json'
       - name: Upload SpotBugs Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: spotbugs-site
           path: './target/site/'
@@ -43,12 +43,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install latest Trivy CLI
         run: |
-          wget https://github.com/aquasecurity/trivy/releases/download/v0.41.0/trivy_0.41.0_Linux-64bit.deb
-          sudo dpkg -i trivy_0.41.0_Linux-64bit.deb
-      - uses: actions/download-artifact@v4.1.7
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.67.2/trivy_0.67.2_Linux-64bit.deb
+          sudo dpkg -i trivy_0.67.2_Linux-64bit.deb
+      - uses: actions/download-artifact@v4
         with:
           name: bom.json
       - name: Run Trivy with SBOM
@@ -64,10 +64,10 @@ jobs:
       IMAGE: ${{ steps.versioning.outputs.IMAGE }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: 'Az CLI Login'
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           client-id: ${{ secrets.CLIENT_ID }}
           tenant-id: ${{ secrets.TENANT_ID }}
@@ -85,7 +85,7 @@ jobs:
           docker login ${LOGINSERVER} --username 00000000-0000-0000-0000-000000000000 --password-stdin <<< $TOKEN
 
       - name: Install pack CLIs including pack and yq
-        uses: buildpacks/github-actions/setup-pack@v5.0.0
+        uses: buildpacks/github-actions/setup-pack@v5.1.0
         with:
           pack-version: '0.29.0'
 
@@ -107,26 +107,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: 'Az CLI Login'
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           client-id: ${{ secrets.CLIENT_ID }}
           tenant-id: ${{ secrets.TENANT_ID }}
           subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
 
-      - uses: azure/setup-kubectl@v3
+      - uses: azure/setup-kubectl@v4
         name: Setup kubectl
 
       - name: Setup kubelogin
         uses: azure/use-kubelogin@v1
         with:
-          kubelogin-version: 'v0.0.29'
+          kubelogin-version: 'v0.2.12'
 
       - name: Set AKS context
         id: set-context
-        uses: azure/aks-set-context@v3
+        uses: azure/aks-set-context@v4
         with:
           resource-group: 'sandbox-rg'
           cluster-name: 'rbac-cluster'
