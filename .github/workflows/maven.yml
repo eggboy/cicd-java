@@ -126,7 +126,7 @@ jobs:
 
       - name: Set AKS context
         id: set-context
-        uses: azure/aks-set-context@v3
+        uses: azure/aks-set-context@v5
         with:
           resource-group: 'sandbox-rg'
           cluster-name: 'rbac-cluster'
