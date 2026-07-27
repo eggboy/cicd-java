@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
       - name: Install latest Trivy CLI
         run: |
           wget https://github.com/aquasecurity/trivy/releases/download/v0.41.0/trivy_0.41.0_Linux-64bit.deb
@@ -64,7 +64,7 @@ jobs:
       IMAGE: ${{ steps.versioning.outputs.IMAGE }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
 
       - name: 'Az CLI Login'
         uses: azure/login@v1
@@ -107,7 +107,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
 
       - name: 'Az CLI Login'
         uses: azure/login@v1
