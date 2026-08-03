@@ -85,7 +85,7 @@ jobs:
           docker login ${LOGINSERVER} --username 00000000-0000-0000-0000-000000000000 --password-stdin <<< $TOKEN
 
       - name: Install pack CLIs including pack and yq
-        uses: buildpacks/github-actions/setup-pack@v5.0.0
+        uses: buildpacks/github-actions/setup-pack@v6.0.1
         with:
           pack-version: '0.29.0'
 
